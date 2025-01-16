@@ -1,6 +1,7 @@
 package com.example.projetoprtico_controledefinanas;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +54,6 @@ public class TransactionFormActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void saveTransaction() {
         String title = editTitle.getText().toString();
         String valueString = editValue.getText().toString();
@@ -65,12 +64,21 @@ public class TransactionFormActivity extends AppCompatActivity {
             return;
         }
 
-        double value = Double.parseDouble(valueString);
+        double value;
+        try {
+            value = Double.parseDouble(valueString);
+        } catch (NumberFormatException e) {
+            Log.e("TransactionForm", "Invalid value: " + valueString, e);
+            Toast.makeText(this, "Invalid value format", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if ("expense".equals(transactionType)) {
             value = -value;
         }
 
         Transaction transaction = new Transaction(title, value, category, new Date());
+        Log.d("TransactionForm", "Transaction: " + transaction);
 
         int transactionId = getIntent().getIntExtra("transaction_id", -1);
         if (transactionId != -1) {
