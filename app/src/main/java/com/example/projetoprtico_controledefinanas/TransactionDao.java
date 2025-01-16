@@ -18,5 +18,9 @@ import java.util.List;
 
         @Query("SELECT * FROM transactions ORDER BY date DESC")
         LiveData<List<Transaction>> getAllTransactions();
+
+        @Query("SELECT * FROM transactions WHERE id = :transactionId LIMIT 1")
+        LiveData<Transaction> getTransactionById(int transactionId);
+
     }
 

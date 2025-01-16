@@ -30,4 +30,9 @@ public class TransactionRepository {
     public LiveData<List<Transaction>> getAllTransactions() {
         return allTransactions;
     }
+
+    public LiveData<Transaction> getTransactionById(int transactionId) {
+        return transactionDao.getTransactionById(transactionId);
+    }
+
 }

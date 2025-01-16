@@ -28,4 +28,9 @@ public class TransactionViewModel extends AndroidViewModel {
     public LiveData<List<Transaction>> getAllTransactions() {
         return allTransactions;
     }
+
+    public LiveData<Transaction> getTransactionById(int transactionId) {
+        return repository.getTransactionById(transactionId);
+    }
+
 }

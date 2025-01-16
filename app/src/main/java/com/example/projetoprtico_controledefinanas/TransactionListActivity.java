@@ -1,5 +1,6 @@
 package com.example.projetoprtico_controledefinanas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,18 +46,20 @@ public class TransactionListActivity extends AppCompatActivity {
     }
 
     private void editTransaction(Transaction transaction) {
-        // Implementation for editing a transaction
+        Intent intent = new Intent(TransactionListActivity.this, TransactionFormActivity.class);
+        intent.putExtra("transaction_id", transaction.getId()); // Passa o ID da transação para identificar no banco de dados
+        startActivity(intent);
     }
 
     private void deleteTransaction(Transaction transaction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.confirm_deletion)
-                .setMessage(R.string.deletion_message)
+                .setMessage(R.string.deletion_message)  // Pede confirmação
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
                     transactionViewModel.delete(transaction);
                     transactionAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.no, null)
-                .show();
+                .show(); // Mostra um AlertDialog
     }
 }
