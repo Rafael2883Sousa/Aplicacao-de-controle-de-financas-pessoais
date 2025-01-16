@@ -8,8 +8,8 @@ import java.util.List;
 
 public class TransactionViewModel extends AndroidViewModel {
 
-    private TransactionRepository repository;
-    private LiveData<List<Transaction>> allTransactions;
+    private TransactionRepository repository; // Repositório para acessar as operações de transação
+    private LiveData<List<Transaction>> allTransactions; // Lista de todas as transações
 
     public TransactionViewModel(@NonNull Application application) {
         super(application);
@@ -18,11 +18,11 @@ public class TransactionViewModel extends AndroidViewModel {
     }
 
     public void insert(Transaction transaction) {
-        repository.insert(transaction);
+        repository.insert(transaction); // método de inserção no repositório
     }
 
     public void delete(Transaction transaction) {
-        repository.delete(transaction);
+        repository.delete(transaction); // método de exclusão no repositório
     }
 
     public LiveData<List<Transaction>> getAllTransactions() {
@@ -30,7 +30,7 @@ public class TransactionViewModel extends AndroidViewModel {
     }
 
     public LiveData<Transaction> getTransactionById(int transactionId) {
-        return repository.getTransactionById(transactionId);
+        return repository.getTransactionById(transactionId); // Retorna a transação com o ID especificado
     }
 
 }

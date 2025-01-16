@@ -34,31 +34,16 @@ public class Transaction {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public double getValue() {
         return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
