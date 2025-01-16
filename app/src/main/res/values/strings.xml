@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Projeto Prático - Controle de Finanças</string>
+    <!-- MainActivity -->
+    <string name="current_balance">Current Balance</string>
+    <string name="total_income">Total Income</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="add_income">Add Income</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="view_transactions">View Transactions</string>
+
+    <!-- TransactionFormActivity -->
+    <string name="error_empty_fields">Please fill in all required fields</string>
+    <string name="transaction_saved">Transaction saved successfully</string>
+
+    <!-- TransactionListActivity -->
+    <string name="transaction_options">Transaction Options</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
+    <string name="deletion_message">Are you sure you want to delete this transaction?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
