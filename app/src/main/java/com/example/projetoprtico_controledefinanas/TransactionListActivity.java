@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionListActivity extends AppCompatActivity {
@@ -28,9 +30,13 @@ public class TransactionListActivity extends AppCompatActivity {
     }
 
     private void initializeAdapter(List<Transaction> transactions) {
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
         transactionAdapter = new TransactionAdapter(transactions, this::onTransactionLongClick);
         transactionRecyclerView.setAdapter(transactionAdapter);
     }
+
 
     private void onTransactionLongClick(Transaction transaction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -61,5 +67,6 @@ public class TransactionListActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(R.string.no, null)
                 .show(); // Mostra um AlertDialog
+
     }
 }

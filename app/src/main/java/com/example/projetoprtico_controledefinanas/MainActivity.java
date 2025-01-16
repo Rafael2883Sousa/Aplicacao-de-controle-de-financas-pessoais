@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +26,42 @@ public class MainActivity extends AppCompatActivity {
         btnAddExpense = findViewById(R.id.btn_add_expense);
         btnViewTransactions = findViewById(R.id.btn_view_transactions);
 
-        btnAddIncome.setOnClickListener(v -> openTransactionForm("income"));
-        btnAddExpense.setOnClickListener(v -> openTransactionForm("expense"));
-        btnViewTransactions.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TransactionListActivity.class)));
+        btnAddIncome.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TransactionFormActivity.class);
+            intent.putExtra("type", "income"); // Envia o tipo de transação como extra
+            startActivity(intent);
+        });
+
+        btnAddExpense.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TransactionFormActivity.class);
+            intent.putExtra("type", "expense"); // Envia o tipo de transação como extra
+            startActivity(intent);
+        });
+
+        btnViewTransactions.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TransactionListActivity.class);
+            startActivity(intent);
+        });
+
+        observeBalances(); // Atualizar os valores exibidos na interface
     }
 
-    private void openTransactionForm(String type) {
-        Intent intent = new Intent(MainActivity.this, TransactionFormActivity.class);
-        intent.putExtra("type", type);
-        startActivity(intent);
+    private void observeBalances() {
+        TransactionViewModel transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+
+        transactionViewModel.getAllTransactions().observe(this, transactions -> {
+            double totalIncome = 0.0, totalExpenses = 0.0;
+            for (Transaction transaction : transactions) {
+                if (transaction.getValue() > 0) {
+                    totalIncome += transaction.getValue();
+                } else {
+                    totalExpenses += transaction.getValue();
+                }
+            }
+
+            currentBalance.setText(String.format(Locale.getDefault(), "$%.2f", totalIncome + totalExpenses));
+            this.totalIncome.setText(String.format(Locale.getDefault(), "$%.2f", totalIncome));
+            this.totalExpenses.setText(String.format(Locale.getDefault(), "$%.2f", Math.abs(totalExpenses)));
+        });
     }
 }
